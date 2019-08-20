@@ -7,9 +7,21 @@ import uuid from 'uuid/v4'
 
 
 const intialExpenses = [
-{id: uuid(), charge: 'rent', amount: 1600},
-{id: uuid(), charge: 'car payment', amount: 400},
-{id: uuid(), charge: 'credit card bill', amount: 1200}
+{
+  id: uuid()
+  , charge: 'rent'
+  , amount: 1600
+},
+{
+  id: uuid()
+  , charge: 'car payment',
+   amount: 400
+  },
+{
+  id: uuid()
+  , charge: 'credit card bill'
+  , amount: 1200
+}
 ]
 // console.log(intialExpenses)
 
@@ -22,13 +34,24 @@ const intialExpenses = [
 
 function App() {
   const [ali, setAli] = useState(intialExpenses)
-  console.log(ali,setAli);
+  console.log(ali);
   
   return (
   <>
     <Alert></Alert>
+    <h1>Budget Calculator</h1>
+    <main className='App'>
     <ExpenseForm/>
-    <ExpenseList/>
+    <ExpenseList expenses={ali}/>
+    </main>
+    <h1>Total Spending:
+    <span className='total'> 
+    ${''}
+    {ali.reduce((acc, curr)=>{
+      return acc += (curr.amount)
+    }, 0)}
+     </span>
+    </h1>
   </>
   );
 }

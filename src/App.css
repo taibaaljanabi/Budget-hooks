@@ -20,16 +20,17 @@ h1 {
   text-align: center;
   text-transform: capitalize;
   margin: 2rem 0;
-  color: var(--mainWhite);
-  letter-spacing: 5px;
+  color: rgb(92, 6, 6);
+  letter-spacing: 8px;
 }
 .App {
   margin: 0 auto;
   max-width: 1280px;
   width: 90%;
-  background: var(--mainWhite);
+  background:lightpink;
   padding-bottom: 2rem;
-  border-radius: 2px;
+  border-radius: 10px;
+
 }
 .form-center {
   display: flex;
@@ -61,7 +62,7 @@ label {
 .btn {
   text-decoration: none;
   color: var(--mainWhite);
-  background-color: var(--primaryColor);
+  background-color: purple;
   text-align: center;
   letter-spacing: 0.5px;
   font-size: 14px;
@@ -141,7 +142,7 @@ label {
 .total {
   font-weight: 300;
   color: var(--mainWhite);
-  background-color: var(--primaryColor);
+  background-color: lightblue;
   border-radius: 2px;
   padding: 2px 5px;
 }
