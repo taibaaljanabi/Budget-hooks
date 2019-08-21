@@ -33,22 +33,60 @@ const intialExpenses = [
 
 
 function App() {
+  // state values
   const [ali, setAli] = useState(intialExpenses)
-  console.log(ali);
+  const [charge, setCharge] = useState('')
+  const [amount, setAmount] = useState('')
+  const [alert, setAlert] = useState({show:false})
+  // functionality 
+  const handleCharge = (e) => {
+    console.log(`charge: ${e.target.value}`)
+    setCharge(e.target.value)
+  }
+  const handleAmount =(e) =>{
+    console.log(`amount: ${amount}`)
+    setAmount(e.target.value)
+  }
+  const handleSubmit = (e)=>{
+    e.preventDefault()
+    const singleExpense = {id:uuid(), charge: charge, amount: amount}
+
+    if(charge != '' && amount > 0){
+      setAli([...ali, singleExpense])
+      setCharge('')
+      setAmount('')
+    }else{
+      // set an alert
+    }
+  }
+  const handleAlert = ({type, text})=>{
+    setAlert({show:true, type,text})
+    setTimeout(()=>{
+      setAlert({show:false})
+    }, 3000)
+  }
+  
   
   return (
   <>
-    <Alert></Alert>
+    {alert.show && <Alert  type={alert.type} text={alert.text}/>}
+    {/* <Alert></Alert> */}
     <h1>Budget Calculator</h1>
     <main className='App'>
-    <ExpenseForm/>
+    <ExpenseForm 
+    charge ={charge} 
+    amount ={amount} 
+    handleCharge ={handleCharge}
+    handleAmount={handleAmount} 
+    handleSubmit={handleSubmit}
+     />
     <ExpenseList expenses={ali}/>
     </main>
     <h1>Total Spending:
     <span className='total'> 
     ${''}
     {ali.reduce((acc, curr)=>{
-      return acc += (curr.amount)
+      return acc += parseInt((curr.amount))
     }, 0)}
      </span>
     </h1>

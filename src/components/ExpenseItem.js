@@ -1,10 +1,21 @@
 import React from 'react';
-
-const ExpenseItem = () => {
+import {MdEdit, MdDeleteSweep} from 'react-icons/md'
+const ExpenseItem = ({expense}) => {
+  const {id, charge,amount} = expense
   return (
-    <div>
-      hello from expense item
+    <li className='item'>
+    <div className='info'>
+    <span className='expense'>{charge}</span>
+    <span className='amount'>{amount}</span>
     </div>
+    <button className='edit-btn' aria-lable='edit button'>
+    <MdEdit/>
+    </button>
+    <button className='clear-btn' aria-lable='clear button'>
+    <MdDeleteSweep/>
+    </button>
+    </li>
+    
   );
 }
 
