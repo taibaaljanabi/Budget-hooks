@@ -12,7 +12,10 @@
   box-sizing: border-box;
 }
 body {
-  background: var(--mainGrey);
+  /* background: var(--mainGrey); */
+  background: linear-gradient(rgb(221, 214, 214, 0.6), rgb(221, 214, 214, 0.6)), url(https://images.unsplash.com/photo-1565514158882-617325fbd873?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80), no-repeat center center fixed;
+  background-size: cover;
+  /* background-repeat: no-repeat; */
   color: var(--mainBlack);
   font-family: "Roboto", sans-serif;
 }
@@ -153,7 +156,7 @@ label {
   text-transform: capitalize;
   width: 90%;
   margin: 2rem auto 0 auto;
-  border-radius: 5px;
+  border-radius: 2px;
   text-transform: capitalize;
 }
 .alert-danger {
