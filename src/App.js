@@ -38,6 +38,8 @@ function App() {
   const [charge, setCharge] = useState('')
   const [amount, setAmount] = useState('')
   const [alert, setAlert] = useState({show:false})
+  const [edit, setEdit] = useState(false)
+  const [id, EditId] = useState(0)
   // functionality 
   const handleCharge = (e) => {
     console.log(`charge: ${e.target.value}`)
@@ -51,19 +53,39 @@ function App() {
     e.preventDefault()
     const singleExpense = {id:uuid(), charge: charge, amount: amount}
 
-    if(charge != '' && amount > 0){
+    if(charge !== '' && amount > 0){
       setAli([...ali, singleExpense])
+      handleAlert({type:'success', text: 'you succesfully added your item'})
       setCharge('')
       setAmount('')
     }else{
-      // set an alert
+      handleAlert({type:'danger', text:'You have to enter the charge and the amount of the item and it shoud be bigger than zero'})
     }
   }
   const handleAlert = ({type, text})=>{
     setAlert({show:true, type,text})
     setTimeout(()=>{
       setAlert({show:false})
-    }, 3000)
+    }, 5000)
+  }
+  const clearAllItems =()=>{
+    setAli([])
+    handleAlert({type:'success' ,text:'You successfully cleared all your expenses'})
+
+  }
+  const deleteItem = id =>{
+  let tempExpenses= ali.filter(item => item.id !== id)
+  setAli(tempExpenses)
+  handleAlert({type:'danger' ,text:'You just deleted an item'})
+  }
+
+  const editItem = id =>{
+    let expense = ali.find(item => item.id === id)
+    //Ask Beni
+    let {charge, amount} = expense
+    setCharge(charge)
+    setAmount(amount)
+    setEdit(true)
   }
   
   
@@ -79,8 +101,9 @@ function App() {
     handleCharge ={handleCharge}
     handleAmount={handleAmount} 
     handleSubmit={handleSubmit}
+    edit={edit}
      />
-    <ExpenseList expenses={ali}/>
+    <ExpenseList expenses={ali} clearAllItems={clearAllItems} deleteItem={deleteItem} editItem={editItem} />
     </main>
     <h1>Total Spending:
     <span className='total'> 
