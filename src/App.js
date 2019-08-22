@@ -1,28 +1,30 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import ExpenseForm from './components/ExpenseForm'
 import ExpenseList from './components/ExpenseList'
 import Alert from './components/Alert'
 import './App.css';
 import uuid from 'uuid/v4'
 
+const intialExpenses= localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses')) : []
 
-const intialExpenses = [
-{
-  id: uuid()
-  , charge: 'rent'
-  , amount: 1600
-},
-{
-  id: uuid()
-  , charge: 'car payment',
-   amount: 400
-  },
-{
-  id: uuid()
-  , charge: 'credit card bill'
-  , amount: 1200
-}
-]
+
+// const intialExpenses = [
+// {
+//   id: uuid()
+//   , charge: 'rent'
+//   , amount: 1600
+// },
+// {
+//   id: uuid()
+//   , charge: 'car payment',
+//    amount: 400
+//   },
+// {
+//   id: uuid()
+//   , charge: 'credit card bill'
+//   , amount: 1200
+// }
+// ]
 // console.log(intialExpenses)
 
 // import useState()
@@ -39,7 +41,12 @@ function App() {
   const [amount, setAmount] = useState('')
   const [alert, setAlert] = useState({show:false})
   const [edit, setEdit] = useState(false)
-  const [id, EditId] = useState(0)
+  const [id, setId] = useState(0)
+  // useEffect
+
+  useEffect(() => {
+    localStorage.setItem('ali', JSON.stringify(ali))
+  }, [ali]);
   // functionality 
   const handleCharge = (e) => {
     console.log(`charge: ${e.target.value}`)
@@ -54,8 +61,19 @@ function App() {
     const singleExpense = {id:uuid(), charge: charge, amount: amount}
 
     if(charge !== '' && amount > 0){
-      setAli([...ali, singleExpense])
-      handleAlert({type:'success', text: 'you succesfully added your item'})
+      if(edit){
+       let tempExpenses =  ali.map(item =>{
+          return item.id === id ? {...item, charge, amount}: item
+        })
+        setAli(tempExpenses)
+        setEdit(false)
+        handleAlert({type:'success' ,text:'Item Edited'})
+
+      }else{
+        setAli([...ali, singleExpense])
+        handleAlert({type:'success', text: 'you succesfully added your item'})
+      }
+      
       setCharge('')
       setAmount('')
     }else{
@@ -86,6 +104,7 @@ function App() {
     setCharge(charge)
     setAmount(amount)
     setEdit(true)
+    setId(id)
   }
   
   
